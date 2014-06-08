@@ -1,3 +1,5 @@
+#https://projecteuler.net/problem=14
+
 def collatz(n,depth):
     depth += 1 #when calling initial, use depth = 0
     if n == 1:

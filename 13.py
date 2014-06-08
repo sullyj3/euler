@@ -1,3 +1,4 @@
+#https://projecteuler.net/problem=13
 numbers_file = open("13")
 num_list = [ int(num[:51]) for num in numbers_file.readlines() ]
 print(num_list)

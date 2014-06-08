@@ -1,3 +1,4 @@
+#https://projecteuler.net/problem=15
 #using globals isn't very elegant. maybe ask about a nicer way of doing it
 
 def gen_grid(width, height):
