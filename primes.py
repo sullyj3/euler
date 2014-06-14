@@ -90,7 +90,11 @@ def find_next_prime(primes):
 def is_prime(n):
     sqrtn = int(ceil(sqrt(n)))
     
-    p = sieve(sqrtn)
-
-
-
+    up_to_sqrt = sieve(sqrtn+1)
+    for prime in up_to_sqrt:
+        if n % prime == 0:
+            debug_print("{0} is not prime (divisible by {1})".format(n, prime), 2)
+            return False
+    else:
+        debug_print("{0} is prime!".format(n), 2)
+        return True
