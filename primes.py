@@ -27,10 +27,10 @@ def find_n_primes(n):
         debug_print("appending {0}. we now have {1} primes".format(next_prime, primes_len), 1)
     return primes
 
-def sieve(n):
+def sieve(n, composites = False):
 
     '''next version, using list instead of dict'''
-    nums = [0,1]+[True for i in range(2,n)]
+    nums = [0,1]+[True for i in range(2,n+1)]
 
     #less calculatin
     sqrtn = int(ceil(sqrt(n)))
@@ -38,14 +38,14 @@ def sieve(n):
     #first prime
     current_prime = 2
 
-    #while current_prime < sqrtn:
     while True:
+        position = current_prime**2
+        debug_print(position,3)
+
         #mark all multiples of current_prime as composites, then make current_prime
         #the next prime above itself, until there are no more primes below n.
 
-        position = current_prime**2
-        debug_print(position,3)
-        while position < n:
+        while position <= n:
             nums[position] = False
             position += current_prime
         primes_upto_sqrtn = (ind for ind,is_prime in list(enumerate(nums))[current_prime + 1:sqrtn + 1] if is_prime)
@@ -55,9 +55,12 @@ def sieve(n):
         except StopIteration:
             break
     
-    return [ind for ind,is_prime in list(enumerate(nums))[2:] if is_prime]
+    if not composites:
+        return [ind for ind,is_prime in list(enumerate(nums))[2:] if is_prime]
+    else:
+        return [ind for ind,is_prime in list(enumerate(nums))[2:] if not is_prime]
 
-def find_next_prime(primes):
+def find_next_prime(primes): #todo: refactor to use is_prime()
     '''takes a list of primes. primes must contain a sequential list
     of all the primes between 0 and the next one you want to find
     '''
