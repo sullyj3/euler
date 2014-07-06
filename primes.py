@@ -43,15 +43,11 @@ def sieve(n, composites = False):
 
     while True: #terminating condition in except StopIteration: below
 
-        position = current_prime**2 # why?
-        debug_print(position,3)
-
         #mark all multiples of current_prime as composites, then make current_prime
         #the next prime above itself, until there are no more primes below n.
 
-        while position <= n:
-            nums[position] = False
-            position += current_prime
+        for index in range(current_prime**2, n+1, current_prime):
+            nums[index] = False
 
         # there's got to be a nicer way of doing this.
         # Construct a generator for the sole purpose of figuring out the next
