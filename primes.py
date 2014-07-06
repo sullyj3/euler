@@ -3,7 +3,7 @@ from math import sqrt,ceil
 '''ideas:
 Could I continue an already existing sieve?'''
 
-#todo: write a version of sieve which can utilise an existing list of primes
+#Todo: write a version of sieve which can utilise an existing list of primes
 
 verbosity = 0
 def debug_print(text, min_verb):
@@ -14,10 +14,10 @@ def find_n_primes(n):
     assert type(n) is int and n > 0
 
     #perhaps I should store primes in a file for reference? Saves computation.
-    #ie, I only need to find the next prime If i've never found it before, 
+    #IE, I only need to find the next prime If I've never found it before, 
     #otherwise I can just look it up.
 
-    #in that case I'd have to make certain that I never make any errors, or i'd start
+    #in that case I'd have to make certain that I never make any errors, or I'd start
     #storing incorrect primes
 
     primes = [2, 3]
@@ -25,17 +25,16 @@ def find_n_primes(n):
     while primes_len < n:
         next_prime = find_next_prime(primes)
 
-        debug_print("appending {0}. we now have {1} primes".format(next_prime, primes_len), 1)
+        debug_print("appending {0}. We now have {1} primes".format(next_prime, primes_len), 1)
         primes.append(next_prime)
         primes_len += 1
 
     return primes
 
 def sieve(n, composites = False):
-    '''is inclusive of n. ie, returned list will include n if n is prime.'''
+    '''is inclusive of n. IE, returned list will include n if n is prime.'''
 
     nums = [0,1]+[True for i in range(2,n+1)]
-
     sqrtn = int(ceil(sqrt(n)))
     
     #first prime
@@ -46,12 +45,15 @@ def sieve(n, composites = False):
         #mark all multiples of current_prime as composites, then make current_prime
         #the next prime above itself, until there are no more primes below n.
 
-        for index in range(current_prime**2, n+1, current_prime):
+        for index in range(current_prime**2, n+1, current_prime): # why current_prime**2? Explain maths in comments
             nums[index] = False
+
+        # determine what the next prime is
+        # why only up to sqrtn?
 
         # there's got to be a nicer way of doing this.
         # Construct a generator for the sole purpose of figuring out the next
-        # prime. then do a gen.next() excepting stop iteration (meaning no more
+        # prime. Then do a gen.next() excepting stop iteration (meaning no more
         # primes below n)
 
         primes_upto_sqrtn = (ind for ind,is_prime in list(enumerate(nums))[current_prime + 1:sqrtn + 1] if is_prime)
@@ -109,12 +111,12 @@ def sieve_2(n, primes = None, composites = False): #needs a better name.
         
         
 
-def find_next_prime(primes): #todo: refactor to use is_prime(), prevent invalid input
+def find_next_prime(primes): #Todo: Refactor to use is_prime(), prevent invalid input
     '''takes a list of primes. primes must contain a sequential list
     of all the primes between 0 and the next one you want to find
     '''
 
-    #primes except 2 are always odd. start looking at the number which is two 
+    #primes except 2 are always odd. Start looking at the number which is two 
     #greater than the last prime found.
     #(this function won't work if primes == [2] )
 
@@ -127,7 +129,7 @@ def find_next_prime(primes): #todo: refactor to use is_prime(), prevent invalid 
         #####################################################################
         #problem is, this doesn't take advantage of the list of primes that 
         #I've already passed to find_next_prime, since is_prime generates 
-        #it's own list every time. if i'm calling it many times (ie in a 
+        #it's own list every time. If I'm calling it many times (IE in a 
         #fuckin while true loop), that's gonna be pretty inefficient. I should
         #really have a globally accessible list which can be written to a file.
 
