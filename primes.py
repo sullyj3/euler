@@ -56,7 +56,9 @@ def sieve(n, composites = False):
         # prime. Then do a gen.next() excepting stop iteration (meaning no more
         # primes below n)
 
-        primes_upto_sqrtn = (ind for ind,is_prime in list(enumerate(nums))[current_prime + 1:sqrtn + 1] if is_prime)
+        # possibilities: is it possible to iterate over a list that's being constantly, dynamically updated? experiment
+
+        primes_upto_sqrtn = (ind for (ind,is_prime) in list(enumerate(nums))[current_prime + 1:sqrtn + 1] if is_prime)
         try:
             current_prime = next(primes_upto_sqrtn)
         except StopIteration:
